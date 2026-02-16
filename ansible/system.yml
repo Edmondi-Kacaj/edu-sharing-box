@@ -84,6 +84,10 @@
     - role: edu-sharing-shibboleth
       tags:
         - edu-sharing-shibboleth
+    - role: edu-sharing-alfresco-webscripts
+      when: enable_alfresco_webscripts_management | default(false)
+      tags:
+        - edu-sharing-alfresco-webscripts
 
 - hosts: opencast
   roles:
