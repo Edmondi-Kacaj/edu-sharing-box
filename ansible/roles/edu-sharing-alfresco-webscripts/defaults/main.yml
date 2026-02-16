@@ -1,0 +1,36 @@
+---
+# Default variables for edu-sharing-alfresco-webscripts role
+
+alfresco_webscripts_url: "{{ edu_sharing_protocol | default('http') }}://{{ edu_sharing_host }}/alfresco/service/index"
+
+# List of webscripts to deploy
+# Each item can have:
+#   - src: A single file, folder, or array of files
+#   - dest: Optional destination path inside the webscripts volume (relative to volume root)
+#           If not specified, files are copied to the root of the webscripts volume
+
+webscripts_to_deploy: []
+  # Example: Single file
+  # - src: "files/webscripts/login.get.desc.xml"
+  #   dest: "login"  # Optional: will be placed in {{ repository_service_volume_webscripts }}/login/
+
+  # Example: Folder containing multiple webscripts
+  # - src: "files/webscripts/search-script"
+  #   dest: "search-script"  # Optional: entire folder copied to this destination
+
+  # Example: Multiple individual files
+  # - src:
+  #     - "files/webscripts/script1.json.ftl"
+  #     - "files/webscripts/script1.get.desc.xml"
+  #     - "files/webscripts/script1.get.js"
+  #   dest: "custom/script1"  # Optional: all files copied to this destination
+
+  # Example: File without destination (goes to root)
+  # - src: "files/webscripts/global-script.get.desc.xml"
+  #   # No dest - will be copied to {{ repository_service_volume_webscripts }}/
+
+
+
+
+
+
