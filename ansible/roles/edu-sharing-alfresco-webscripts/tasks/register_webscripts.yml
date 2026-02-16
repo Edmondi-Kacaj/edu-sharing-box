@@ -1,0 +1,31 @@
+---
+# Register webscripts and reload Alfresco
+
+- name: reload alfresco webscripts
+  uri:
+    url: "{{ alfresco_webscripts_url }}"
+    method: POST
+    body: "reset=on"
+    user: "{{ alfresco_admin_user | default('admin') }}"
+    password: "{{ alfresco_admin_password | default(alf_password) }}"
+    force_basic_auth: yes
+    status_code: 200
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+  register: webscripts_reload_result
+  failed_when: false
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization
+
+
+
+- name: Display webscripts reload result
+  debug:
+    msg: "Alfresco webscripts reload status: {{ webscripts_reload_result.status | default('failed') }}"
+  when: webscripts_reload_result is defined
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization

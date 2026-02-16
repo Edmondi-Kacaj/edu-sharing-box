@@ -1,0 +1,27 @@
+---
+# Clean up all existing webscripts content
+
+- name: Find all items in webscripts directory
+  find:
+    paths: "{{ repository_volume_webscripts.stdout }}"
+    file_type: any
+    hidden: yes
+  register: webscripts_contents
+  become: true
+  tags: 
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization
+
+- name: Remove all existing webscripts content
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  become: true
+  loop: "{{ webscripts_contents.files | default([]) }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization

@@ -1,0 +1,18 @@
+---
+# Handlers for edu-sharing-alfresco-webscripts role
+
+- name: reload alfresco webscripts
+  uri:
+    url: "{{ alfresco_webscripts_url }}"
+    method: POST
+    body: "reset=on"
+    user: "{{ alfresco_admin_user | default('admin') }}"
+    password: "{{ alfresco_admin_password | default(alf_password) }}"
+    force_basic_auth: yes
+    status_code: 200
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+  register: webscripts_reload_result
+  failed_when: false
+
+

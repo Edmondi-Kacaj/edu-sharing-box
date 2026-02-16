@@ -1,0 +1,16 @@
+---
+# Deploy Alfresco webscripts
+
+- name: Deploy webscripts
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ repository_volume_webscripts.stdout }}{% if item.dest is defined and item.dest != '' %}/{{ item.dest }}{% endif %}/"
+    mode: '0755'
+  become: true
+  loop: "{{ webscripts_to_deploy }}"
+  loop_control:
+    label: "{{ item.src }}"
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization

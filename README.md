@@ -64,4 +64,5 @@ Each role in the edu-sharing playbook comes with its own detailed documentation,
 - [edu-sharing-splash](ansible/roles/edu-sharing-splash/documentation/README.md): This role handles edu-sharing-splash installation.
 - [edu-sharing-plugin-mongo](ansible/roles/edu-sharing-plugin-mongo/documentation/README.md): This role handles edu-sharing-plugin-mongo.
 - [edu-sharing-notification](ansible/roles/edu-sharing-notification/documentation/README.md): This role handles edu-sharing-notification plugin.
+- [edu-sharing-alfresco-webscripts](ansible/roles/edu-sharing-alfresco-webscripts/documentation/README.md): This role manages custom Alfresco webscripts.
 These documentation files provide detailed instructions and guidelines for using each role effectively.
