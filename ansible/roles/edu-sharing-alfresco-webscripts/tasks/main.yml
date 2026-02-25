@@ -1,0 +1,43 @@
+---
+# Main tasks for edu-sharing-alfresco-webscripts role
+
+- name: Get the path to the repository service config webscripts volume.
+  shell: |
+    sg docker -c "docker volume inspect --format '{{ '{{' }}.Mountpoint{{ '}}' }}'  $(sg docker -c "docker volume ls -q |grep '_repository-service-volume-webscripts'")"
+  register: repository_volume_webscripts
+  ignore_errors: true
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization
+
+- name: Clean up existing webscripts
+  include_tasks: cleanup_webscripts.yml
+  when:
+    - repository_volume_webscripts.stdout is defined
+    - repository_volume_webscripts.stdout != ""
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization
+
+- name: Deploy Alfresco webscripts
+  include_tasks: deploy_webscript.yml
+  when:
+    - repository_volume_webscripts.stdout is defined
+    - repository_volume_webscripts.stdout != ""
+    - enable_alfresco_webscripts_management | default(false)
+    - webscripts_to_deploy is defined
+    - webscripts_to_deploy is not none
+    - webscripts_to_deploy | length > 0
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization
+
+- name: Register and reload webscripts
+  include_tasks: register_webscripts.yml
+  tags:
+    - edu-sharing-alfresco-webscripts
+    - alfresco-webscripts-management
+    - alfresco-customization

@@ -14,6 +14,10 @@
                 ProxyPass ajp://localhost:8102/share
                 ProxyPassReverse ajp://localhost:8102/share
         </Location>
+        <Location /alfresco>
+                ProxyPass ajp://localhost:8102/alfresco
+                ProxyPassReverse ajp://localhost:8102/alfresco
+        </Location>
          #ProxyPreserveHost On
         <Location /esrender>
               ProxyPass http://localhost:9100/esrender

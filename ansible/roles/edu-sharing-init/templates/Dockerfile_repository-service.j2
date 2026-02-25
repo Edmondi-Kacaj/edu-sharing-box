@@ -4,3 +4,9 @@ USER worker
 COPY {{amp_file_name}} /opt/alfresco/amps/alfresco/1/{{amp_file_name}}
 
 COPY reinstall.sh /opt/alfresco/bin/reinstall.sh
+
+{% if enable_alfresco_webscripts_management | default(false) %}
+# Alfresco webscripts management: Create directory with proper permissions
+RUN set -eux \
+    && mkdir -p {{ alfresco_webscripts_path | default("/opt/alfresco/tomcat/shared/classes/alfresco/extension/templates/webscripts") }}
+{% endif %}
