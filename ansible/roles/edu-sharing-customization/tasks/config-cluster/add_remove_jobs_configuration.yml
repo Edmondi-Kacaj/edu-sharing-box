@@ -42,8 +42,9 @@
       jobs.entries +={
           name: "{{ job.name | default((job.job_class.split('.')[-1] | regex_replace('Job$', '') | regex_replace('([A-Z])', ' \1') | trim)) }}",
           class: "{{ job.job_class }}",
-          trigger: "{{ job.trigger | default('Immediate') }}"{% if job.parameters is defined and job.parameters %},
-          parameters: {
+          trigger: "{{ job.trigger | default('Immediate') }}"
+          {% if job.parameters is defined and job.parameters %},
+          params: {
           {% for param_key, param_value in job.parameters.items() %}
               {{ param_key }}: {{ param_value | to_json }}{{ "," if not loop.last else "" }}
           {% endfor %}
